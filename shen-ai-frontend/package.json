@@ -14,7 +14,8 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/",
-    "openapi2ts": "openapi2ts"
+    "openapi2ts": "openapi2ts",
+    "openapi": "node openapi.config.js"
   },
   "dependencies": {
     "ant-design-vue": "^4.2.6",
