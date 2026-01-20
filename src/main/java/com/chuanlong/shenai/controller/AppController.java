@@ -2,6 +2,8 @@ package com.chuanlong.shenai.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.chuanlong.shenai.annotation.AuthCheck;
 import com.chuanlong.shenai.common.BaseResponse;
 import com.chuanlong.shenai.common.DeleteRequest;
 import com.chuanlong.shenai.common.ResultUtils;
@@ -11,10 +13,13 @@ import com.chuanlong.shenai.exception.ThrowUtils;
 import com.chuanlong.shenai.model.constant.CodeGenTypeEnum;
 import com.chuanlong.shenai.model.constant.UserConstant;
 import com.chuanlong.shenai.model.dto.app.AppAddRequest;
+import com.chuanlong.shenai.model.dto.app.AppQueryRequest;
 import com.chuanlong.shenai.model.dto.app.AppUpdateRequest;
+import com.chuanlong.shenai.model.dto.user.UserQueryRequest;
 import com.chuanlong.shenai.model.entity.App;
 import com.chuanlong.shenai.model.entity.User;
 import com.chuanlong.shenai.model.vo.AppVO;
+import com.chuanlong.shenai.model.vo.UserVO;
 import com.chuanlong.shenai.service.AppService;
 import com.chuanlong.shenai.service.UserService;
 import jakarta.annotation.Resource;
@@ -23,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/app")
@@ -135,4 +141,21 @@ public class AppController {
         return ResultUtils.success(appService.getAppVO(app));
     }
 
+    /**
+     * 分页获取APP列表
+     *
+     * @param appQueryRequest 查询请求参数
+     */
+    @PostMapping("/my/list/page/vo")
+    public BaseResponse<Page<AppVO>> listMyAppVOByPage(@RequestBody AppQueryRequest appQueryRequest) {
+        ThrowUtils.throwIf(appQueryRequest == null, ErrorCode.PARAMS_ERROR);
+        long current = appQueryRequest.getCurrent();
+        long pageSize = appQueryRequest.getPageSize();
+        Page<App> appPage = appService.page(new Page<>(current, pageSize),
+                appService.getQueryWrapper(appQueryRequest));
+        Page<AppVO> appVOPage = new Page<>(current, pageSize, appPage.getTotal());
+        List<AppVO> appVOList = appService.getAppVOList(appPage.getRecords());
+        appVOPage.setRecords(appVOList);
+        return ResultUtils.success(appVOPage);
+    }
 }
