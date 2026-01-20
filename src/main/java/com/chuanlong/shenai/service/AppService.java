@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.chuanlong.shenai.model.entity.User;
 import com.chuanlong.shenai.model.vo.AppVO;
 import com.chuanlong.shenai.model.vo.UserVO;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -18,6 +19,18 @@ import java.util.List;
 * @createDate 2026-01-21 01:18:29
 */
 public interface AppService extends IService<App> {
+
+    /**
+     * 通过对话生成应用代码
+     *
+     * @param appId     应用 ID
+     * @param message   提示词
+     * @param loginUser 登录用户
+     * @return
+     */
+    Flux<String> chatToGenCode(Long appId, String message, User loginUser);
+
+
     AppVO getAppVO(App app);
 
     /**
