@@ -162,11 +162,14 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App>
         queryWrapper.like(StrUtil.isNotBlank(appName), "appName", appName);
         queryWrapper.like(StrUtil.isNotBlank(cover), "cover", cover);
         queryWrapper.like(StrUtil.isNotBlank(initPrompt), "initPrompt", initPrompt);
-        queryWrapper.eq(Objects.nonNull(codeGenType), "codeGenType", codeGenType);
-        queryWrapper.eq(Objects.nonNull(deployKey), "deployKey", deployKey);
+        queryWrapper.eq(StrUtil.isNotBlank(codeGenType), "codeGenType", codeGenType);
+        queryWrapper.eq(StrUtil.isNotBlank(deployKey), "deployKey", deployKey);
         queryWrapper.eq(Objects.nonNull(priority), "priority", priority);
         queryWrapper.eq(Objects.nonNull(userId), "userId", userId);
-        queryWrapper.orderBy(StrUtil.isNotBlank(sortField), sortOrder.equals("ascend"), sortOrder);
+        if (StrUtil.isNotBlank(sortField)) {
+            boolean isAsc = StrUtil.isNotBlank(sortOrder) && "ascend".equals(sortOrder);
+            queryWrapper.orderBy(true, isAsc, sortField);
+        }
         return queryWrapper;
     }
 

@@ -48,7 +48,7 @@ import { computed, h, ref } from 'vue'
 import { HomeOutlined, LogoutOutlined } from '@ant-design/icons-vue'
 import { type MenuProps, message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
-import { useLoginUserStore } from '@/stores/useLoginUserStore'
+import { useLoginUserStore } from '@/stores/useLoginUserStore.ts'
 import { userLogout } from '@/api/userController.ts'
 
 const loginUserStore = useLoginUserStore()
@@ -70,6 +70,11 @@ const originItems = ref<MenuProps['items']>([
     label: '用户管理',
     title: '用户管理',
   },
+  {
+    key: '/admin/appManage',
+    label: '应用管理',
+    title: '应用管理',
+  }
 ])
 
 // 根据权限过滤菜单项
@@ -100,9 +105,7 @@ const doLogout = async () => {
   const res = await userLogout()
   console.log(res)
   if (res.data.code === 0) {
-    loginUserStore.setLoginUser({
-      userName: '未登录',
-    })
+    loginUserStore.clearLoginUser()
     message.success('退出登录成功')
     await router.push('/user/login')
   } else {

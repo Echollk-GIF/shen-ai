@@ -45,9 +45,9 @@ const loginUserStore = useLoginUserStore()
  */
 const handleSubmit = async (values: API.UserLoginRequest) => {
   const res = await userLogin(values)
-  // 登录成功，把登录态保存到全局状态中
+  // 登录成功，把登录态保存到全局状态和本地存储中
   if (res.data.code === 0 && res.data.data) {
-    await loginUserStore.fetchLoginUser()
+    loginUserStore.setLoginUser(res.data.data)
     message.success('登录成功')
     await router.push({
       path: '/',
