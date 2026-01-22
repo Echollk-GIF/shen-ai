@@ -48,7 +48,7 @@ import { computed, h, ref } from 'vue'
 import { HomeOutlined, LogoutOutlined } from '@ant-design/icons-vue'
 import { type MenuProps, message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
-import { useLoginUserStore } from '@/stores/useLoginUserStore.ts'
+import { useLoginUserStore } from '@/stores/loginUser.ts'
 import { userLogout } from '@/api/userController.ts'
 
 const loginUserStore = useLoginUserStore()
@@ -74,7 +74,7 @@ const originItems = ref<MenuProps['items']>([
     key: '/admin/appManage',
     label: '应用管理',
     title: '应用管理',
-  }
+  },
 ])
 
 // 根据权限过滤菜单项

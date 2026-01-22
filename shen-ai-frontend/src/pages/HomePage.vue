@@ -2,7 +2,7 @@
 import { ref, reactive, onMounted, watch, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
-import { useLoginUserStore } from '@/stores/useLoginUserStore'
+import { useLoginUserStore } from '@/stores/loginUser'
 import { addApp, listMyAppVoByPage, listGoodAppVoByPage } from '@/api/appController'
 import { getDeployUrl } from '@/config/env'
 import AppCard from '@/components/AppCard.vue'
@@ -321,11 +321,7 @@ onMounted(() => {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(
-      rgba(59, 130, 246, 0.08) 0%,
-      rgba(139, 92, 246, 0.06) 40%,
-      transparent 80%
-    ),
+    radial-gradient(rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.06) 40%, transparent 80%),
     linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.04) 50%, transparent 70%),
     linear-gradient(-45deg, transparent 30%, rgba(139, 92, 246, 0.04) 50%, transparent 70%);
   pointer-events: none;

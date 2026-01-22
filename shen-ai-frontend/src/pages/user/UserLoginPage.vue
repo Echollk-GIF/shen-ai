@@ -27,7 +27,7 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 import { userLogin } from '@/api/userController.ts'
-import { useLoginUserStore } from '@/stores/useLoginUserStore.ts'
+import { useLoginUserStore } from '@/stores/loginUser.ts'
 import { message } from 'ant-design-vue'
 import router from '@/router' // 用于接受表单输入的值
 
