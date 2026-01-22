@@ -6,6 +6,7 @@ import com.chuanlong.shenai.model.dto.chathistory.ChatHistoryQueryRequest;
 import com.chuanlong.shenai.model.entity.ChatHistory;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.chuanlong.shenai.model.entity.User;
+import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 
 import java.time.LocalDateTime;
 
@@ -41,4 +42,7 @@ public interface ChatHistoryService extends IService<ChatHistory> {
                                                User loginUser);
 
     QueryWrapper getQueryWrapper(ChatHistoryQueryRequest chatHistoryQueryRequest);
+
+
+    int loadChatHistoryToMemory(Long appId, MessageWindowChatMemory chatMemory, int maxCount);
 }
