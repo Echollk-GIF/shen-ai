@@ -26,3 +26,4 @@ export const getStaticPreviewUrl = (codeGenType: string, appId: string) => {
   }
   return baseUrl
 }
+
